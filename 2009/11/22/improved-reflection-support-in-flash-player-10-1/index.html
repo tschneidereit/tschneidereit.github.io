@@ -1,0 +1,463 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Improved reflection support in Flash Player 10.1? - Till Schneidereit</title>
+  <meta name="author" content="Till Schneidereit">
+
+  
+  <meta name="description" content="describeTypeJSON So it looks like Flash Player 10.1 might support a somewhat improved
+reflections API containing support for: retrieving reflected &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed/" rel="alternate" title="Till Schneidereit" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10759382-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Till Schneidereit</a></h1>
+  
+    <h2>Virtualizing machines since not that long</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed/" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tschneidereit.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Improved reflection support in Flash Player 10.1?</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-22T01:23:14+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h4>describeTypeJSON</h4>
+
+<p>So it looks like Flash Player 10.1 <em>might</em> support a somewhat improved
+reflections API containing support for:</p>
+
+<ul>
+<li>retrieving reflected information as JSON (or rather, as an AS3 object tree)</li>
+<li>filtering the request to only retrieve certain types of information</li>
+<li>Some more functions that are used internally to construct the result of describeType</li>
+</ul>
+
+
+<p>In other words, it containes improved access to the information available
+through <code>describeType</code> and nothing more.</p>
+
+<p>All of this functionality resides in the <code>avmplus</code> package in the
+playerglobal.swc that can be <a href="http://labs.adobe.com/downloads/flashplayer10.html">downloaded from labs.adobe.com</a>.</p>
+
+<p>This package contains a few methods and an assortment of constants:</p>
+
+<p><img src="/images/posts/2009/11/reflection-in-fp-10_1.png" alt="reflection in fp 10.1" /></p>
+
+<p>The most (or only, really) interesting of these is
+<code>DescribeType.describeTypeJSON</code>. Using this method, it&rsquo;s possible to retrieve
+reflection data as an object and to filter certain types of information using
+the constants seen in the image above as bit flags. For example, to get only
+information about the reflected classes constructor, you use the following
+code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">DescribeType</span><span class="o">.</span><span class="na">describeTypeJSON</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_CONSTRUCTOR</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_TRAITS</span> <span class="o">|</span> <span class="n">avmplus</span><span class="o">.</span><span class="na">USE_ITRAITS</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Using the different flags, it&rsquo;s possible to request an object containing
+exactly the information needed for a certain use-case. For example, in
+<a href="http://github.com/tschneidereit/SwiftSuspenders">SwiftSuspenders</a>, I&rsquo;d use
+the following code to get information about a types&#8217; methods, getters/setters,
+variables and constructor, all with associated metadata:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">DescribeType</span><span class="o">.</span><span class="na">describeTypeJSON</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">,</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_CONSTRUCTOR</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_METHODS</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_VARIABLES</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_ACCESSORS</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_METADATA</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">HIDE_OBJECT</span> <span class="o">|</span>
+</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_TRAITS</span> <span class="o">|</span> <span class="n">avmplus</span><span class="o">.</span><span class="na">USE_ITRAITS</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>The last two flags have to be present to get any meaningful information at
+all. I honestly have no idea why it&rsquo;d be necessary to explicitly state that,
+yes, I want to include traits &ndash; you know, the mechanism with which the virtual
+machine links everything to classes and without which a class is completely
+uninteresting. And don&rsquo;t get me started on what <code>avmplus.USE_ITRAITS</code> stands
+for.</p>
+
+<p>All of this can also be used with the new <code>avmplus.describeType</code>, which is
+essentially identical to <code>flash.utils.describeType</code> except that it adds an
+additional parameter for the configuration flags:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">describeType</span><span class="o">(</span><span class="n">target</span> <span class="o">:</span> <span class="n">Object</span><span class="o">,</span> <span class="n">flags</span> <span class="o">:</span> <span class="n">uint</span><span class="o">)</span> <span class="o">:</span> <span class="n">XML</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Detours</h4>
+
+<p>If you think that that&rsquo;s all you need to know about how to use this new API,
+think again. All of these methods and the <code>DescribeType</code> class are implemented
+as internal types of the <code>avmplus</code> package and thus not accessible from
+outside this package. Fortunately, this can be worked around by creating a
+public wrapper in the same package:</p>
+
+<div><script src='https://gist.github.com/240357.js'></script>
+<noscript><pre><code>package avmplus
+{
+    public class PublicDescribeType
+    {
+        public static function describeTypeJSON(target : Object, flags : uint) : Object
+        {
+            return DescribeType.describeTypeJSON(target, flags);
+        }
+        
+        public function publicDescribeMetadata(xml : XML, metadata : Array) : void
+        {
+            describeMetadata(xml, metadata);
+        }
+        
+        public function publicDescribeParams(xml : XML, parameters : Object) : void
+        {
+            describeParams(xml, parameters);
+        }
+        
+        public function publicDescribeTraits(xml : XML, traits : Object) : void
+        {
+            describeTraits(xml, traits);
+        }
+        
+        public function publicFinish(xml : XML, e : XML, i : Object) : void
+        {
+            finish(xml, e, i);
+        }
+    }
+}</code></pre></noscript></div>
+
+
+<h4>Is it all just a mistake?</h4>
+
+<p>There are some things that are a bit fishy about this whole affair: Why is all
+this functionality internal to the <code>avmplus</code> namespace? And what&rsquo;s with the
+name &ldquo;avmplus&rdquo; in the first place? Seems like a weird choice to expose the
+project name of the VM in such a way. Also, the API feels quite rough and
+exposes functionality that&rsquo;s seemingly useless to AS3 developers.</p>
+
+<p>Investigating some more, I discovered how this entire API came to be: It&rsquo;s the
+new implementation of the old <code>describeType</code> functionality in the new version
+of the ActionScript Virtual Machine, code named Tamarin Tracing. The <a href="http://hg.mozilla.org/tamarin-redux/rev/55b332e70e12">log message of the commit which added it</a> sheds some light on this. Since this initial commit,
+<a href="http://hg.mozilla.org/tamarin-redux/log?rev=describetype">a few changes</a> have
+been made, resulting in <a href="http://hg.mozilla.org/tamarin-redux/file/81b0b36ee7cb/core/DescribeType.as">the current version of the API</a> as exposed in 10.1
+beta.</p>
+
+<p>Now here&rsquo;s my guess about what&rsquo;s happened: When creating the Flash Player
+beta, some configuration option was set the wrong way, causing the <code>avmplus</code>
+package to be visible within playerglobal.swc, when it really should be an
+invisible implementation detail. At the very least, the API in this state
+probably isn&rsquo;t meant for public consumption and might well be removed in the
+final 10.1 version.</p>
+
+<h4>Now what?</h4>
+
+<p>I&rsquo;d really like for this API to stay &ndash; be it in the current state or as a
+polished version located in the <code>flash.utils</code> package or wherever.
+Unfortunately, I&rsquo;m not sure what to do to that end; Adding a bug to the Flash
+Player issue tracker to ask that something that&rsquo;s available in the beta should
+stay that way in the final release seems odd.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">till</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-22T01:23:14+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/actionscript/'>ActionScript</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1/" data-via="tschneidereit" data-counturl="http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/09/21/introducing-swiftsuspenders/" title="Previous Post: Introducing SwiftSuspenders">&laquo; Introducing SwiftSuspenders</a>
+      
+      
+        <a class="basic-alignment right" href="/2009/11/24/announcing-swiftsuspenders-1-0/" title="Next Post: Announcing SwiftSuspenders 1.0">Announcing SwiftSuspenders 1.0 &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/05/14/editing-git-commit-messages-with-sublime-text-2/">Editing Git and Mercurial Commit Messages With Sublime Text 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/">Setting Up Eclipse CDT To Work On SpiderMonkey</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/12/13/on-beginnings/">On Beginnings</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/">Flash >= CS5 and version control: Of binary data and wasted bandwidth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/tschneidereit">@tschneidereit</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'tschneidereit',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("tschneidereit", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/tschneidereit" class="twitter-follow-button" data-show-count="false">Follow @tschneidereit</a>
+  
+</section>
+
+<section>
+  <h1>Sometimes, I speak</h1>
+  <a href='http://www.fitc.ca/events/speakers/speaker.cfm?event=125&speaker_id=13275' target='_blank'><img src='/images/badges/AM12_Speaker.jpg'/></a>
+  <a href='http://www.tryharder.org.uk/' target='_blank'><img src='/images/badges/i_will_try_harder.jpg'/></a>
+  <a href='http://www.beyondtellerrand.com/ffk11/speakers_sessions.php#schneidereit' target='_blank'><img src='/images/badges/ffk11.png'/></a>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Till Schneidereit -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tillschneidereit';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1/';
+        var disqus_url = 'http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

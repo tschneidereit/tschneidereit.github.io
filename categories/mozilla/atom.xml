@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Mozilla | Till Schneidereit]]></title>
+  <link href="http://tschneidereit.github.com/categories/mozilla/atom.xml" rel="self"/>
+  <link href="http://tschneidereit.github.com/"/>
+  <updated>2013-07-01T05:16:53+02:00</updated>
+  <id>http://tschneidereit.github.com/</id>
+  <author>
+    <name><![CDATA[Till Schneidereit]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Setting Up Eclipse CDT To Work On SpiderMonkey]]></title>
+    <link href="http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/"/>
+    <updated>2012-05-09T14:01:00+02:00</updated>
+    <id>http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey</id>
+    <content type="html"><![CDATA[<p><em>Note: This text has since been <a href="https://developer.mozilla.org/en/SpiderMonkey/Setting_up_CDT_to_work_on_SpiderMonkey">added to MDN</a>, so that version is very likely to be more up-to-date than this one, depending on when you&rsquo;re reading this.</em></p>
+
+<p>The version of <a href="http://wiki.eclipse.org/CDT/">Eclipse&rsquo;s CDT</a> that&rsquo;s will be released with the <a href="">next major release of Eclipse, codenamed &ldquo;Juno&rdquo;</a>, has <a href="http://wiki.eclipse.org/CDT/User/NewIn81">some pretty decent features</a> that make it an attractive environment to work in.</p>
+
+<p>Over at the <a href="https://developer.mozilla.org/">Mozilla Developer Network</a>, there&rsquo;s a guide for setting up CDT to work with the Mozilla codebase. As that guide is a bit outdated and doesn&rsquo;t cover setting things up for just SpiderMonkey instead of the whole Mozilla codebase, here&rsquo;s a short-ish guide for doing just that:</p>
+
+<h2>Step 1 &ndash; Preparing a SpiderMonkey build</h2>
+
+<p>For CDT to index all code, SpiderMonkey has to be built with debug information. The full process of and requisites for doing so are described <a href="https://developer.mozilla.org/en/Building_only_SpiderMonkey#Advanced_build">on MDN</a>. Please follow those instructions up until the point of invoking <code>configure</code>.</p>
+
+<p>I prefer building with clang, so my modified build commands look like this:</p>
+
+<p><code>
+mkdir _DBG.OBJ
+cd _DBG.OBJ
+CC='clang -Qunused-arguments -fcolor-diagnostics' CXX='clang++ -Qunused-arguments -fcolor-diagnostics' ../configure --enable-debug --disable-optimize --enable-debug-symbols
+</code></p>
+
+<p><em>Note: due to <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=378984">a bug in CDT</a>, it&rsquo;s currently not possible (or at least not straight-forward) to build with ccache. See Step 4 below for a workaround.</em></p>
+
+<h2>Step 2 &ndash; Installing Eclipse and Setting Up the Project</h2>
+
+<p>The following run-down is a condensed and updated version of what&rsquo;s explained in much more detail on MDN <a href="https://developer.mozilla.org/en/Eclipse_CDT">for the entire Mozilla codebase</a>. Luckily, improvements in CDT have reduced the basic process to a manageable 10 steps:</p>
+
+<ol>
+<li>Download and extract &ldquo;Eclipse IDE for C/C++ Developers&rdquo; from the <a href="http://www.eclipse.org/downloads/index-developer.php">Eclipse Developer builds</a></li>
+<li>Download the latest snapshot of the CDT from <a href="https://hudson.eclipse.org/hudson/job/cdt-sd90/">Eclipse&rsquo;s CI server</a> <em>without extracting the contents</em></li>
+<li>Start Eclipse and create a workspace somewhere</li>
+<li>Select &ldquo;Install New Software&hellip;&rdquo; from the &ldquo;Help&rdquo; menu</li>
+<li>Click the &ldquo;Add&hellip;&rdquo; button in the upper right to add a repository, then click on &ldquo;Archive&hellip;&rdquo; and select the CDT snapshot (use &ldquo;sd90-snapshot&rdquo; or something similar as the name)</li>
+<li>Select &ldquo;C/C++ Development Tools&rdquo; from &ldquo;CDT Main Features&rdquo; and whatever you want from &ldquo;CDT Optional Features&rdquo; and click &ldquo;Next&rdquo; and agree to licenses and installing unsigned packages and all that jazz until you&rsquo;re prompted to restart</li>
+<li>Restart Eclipse</li>
+<li>Back in Eclipse, select &ldquo;New > Makefile Project with Existing Code&rdquo; from the &ldquo;File&rdquo; menu</li>
+<li>Give the project a name you like (&ldquo;SpiderMonkey&rdquo; has a nice ring to it) and use the &ldquo;Browser&hellip;&rdquo; button to select your checkout&rsquo;s <code>js/src</code> folder for the &ldquo;Existing Code Location&rdquo;</li>
+<li> Choose the correct toolchain for your platform (i.e. MacOSX GCC on Mac) and click &ldquo;Finish&rdquo;</li>
+</ol>
+
+
+<p>At this point, the indexer starts running and already produces a pretty decent index of much of SpiderMonkey. Still, there are a quite a few things that CDT doesn&rsquo;t pick up yet: For everything to be indexed, CDT has to be aware of the project&rsquo;s build details.</p>
+
+<h2>Step 3 &ndash; Index All the Code</h2>
+
+<p>To let CDT know about the build, it has to invoke make itself (or, as is done in the guide for the whole Mozilla codebase on MDN, read a log of the build). This can be setup in another set of decently simple steps:</p>
+
+<ol>
+<li>Open the project&rsquo;s properties by selecting its root and clicking &ldquo;Properties&rdquo; in the &ldquo;File&rdquo; menu and select &ldquo;C/C++ Build&rdquo;</li>
+<li>Under &ldquo;Builder Settings&rdquo;, deactivate &ldquo;Use default build command&rdquo;</li>
+<li>Instead, change &ldquo;Build command&rdquo; to read <code>make -w</code> (this is required because CDT needs detailed information about which directories <code>make</code> operates on, which using <code>-w</code> causes <code>make</code> to provide)</li>
+<li>Change the &ldquo;Build location&rdquo; to the build directory configured in step 1. For me, that means changing &ldquo;Build directory&rdquo; to read <code>${workspace_loc:/SpiderMonkey/_DBG.OBJ}</code></li>
+<li>Under &ldquo;Behavior&rdquo;, make sure that &ldquo;Enable parallel build&rdquo; is <em>deactivated</em>, as CDT&rsquo;s indexer will freak out otherwise</li>
+<li>Remove &ldquo;all&rdquo; from &ldquo;Build (Incremental build)&rdquo;</li>
+<li>Deactivate &ldquo;Clean&rdquo; so that your builds don&rsquo;t take ages</li>
+<li>If you&rsquo;re using clang, <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=378981">a bug in CDT</a> requires changing one more setting: in the project&rsquo;s &ldquo;C/C++ General &ndash;> Preprocessor Include
+Paths, Macros etc.&rdquo; settings panel, select the &ldquo;Providers&rdquo; tab, then select &ldquo;CDT GCC Build Output Parser&rdquo; and change the content of the &ldquo;Compiler command pattern&rdquo; input field to read <code>(gcc)|([gc]\+\+)|(clang)</code></li>
+<li>Start the build by selecting &ldquo;Build All&rdquo; from the &ldquo;Project&rdquo; menu</li>
+<li>Start the indexer by selecting &ldquo;Index > Rebuild&rdquo; from the project&rsquo;s context menu</li>
+</ol>
+
+
+<p>And that&rsquo;s pretty much it: Large parts of SpiderMonkey should now be indexed. Unfortunately, there are also large parts that aren&rsquo;t properly indexed, leading to errors and warnings being shown for perfectly valid code, but I find that the parts that <em>do</em> work do so nicely enough to make it totally worth it.</p>
+
+<p>That leaves us with only one thing to do:</p>
+
+<h2>Step 4 &ndash; Speeding It Up</h2>
+
+<p>As mentioned above, CDT doesn&rsquo;t like ccache for some reason. Until <a href="https://bugs.eclipse.org/bugs/show_bug.cgi?id=378984">that bug</a> is fixed, a somewhat simple workaround is to hide the usage of ccache by wrapping it with shell scripts for <code>gcc</code>/<code>g++</code> and <code>clang</code>/<code>clang++</code>, respectively. I use clang, so I put two scripts into <code>/usr/local/bin/</code>:</p>
+
+<h3>cclang:</h3>
+
+<p>```</p>
+
+<h1>!/bin/bash</h1>
+
+<p>/usr/local/bin/ccache /usr/local/bin/clang $@
+```</p>
+
+<h3>cclang++:</h3>
+
+<p>```</p>
+
+<h1>!/bin/bash</h1>
+
+<p>/usr/local/bin/ccache /usr/local/bin/clang++ $@
+```</p>
+
+<p>After a quick <code>chmod u+x /usr/local/bin/cclang*</code>, use the following configure command to start working with ccache after all:
+<code>
+CC='cclang -Qunused-arguments -fcolor-diagnostics' CXX='cclang++ -Qunused-arguments -fcolor-diagnostics' ../configure --enable-debug --disable-optimize --enable-debug-symbols
+</code></p>
+]]></content>
+  </entry>
+  
+</feed>

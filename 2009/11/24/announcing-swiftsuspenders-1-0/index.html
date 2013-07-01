@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Announcing SwiftSuspenders 1.0 - Till Schneidereit</title>
+  <meta name="author" content="Till Schneidereit">
+
+  
+  <meta name="description" content="The History Almost exactly two months ago, I announced the first public version of SwiftSuspenders, my DI/ IoC
+solution for AS3. In that announcement &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed/" rel="alternate" title="Till Schneidereit" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10759382-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Till Schneidereit</a></h1>
+  
+    <h2>Virtualizing machines since not that long</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed/" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tschneidereit.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Announcing SwiftSuspenders 1.0</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-24T21:59:03+01:00" pubdate data-updated="true">Nov 24<span>th</span>, 2009</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><h4>The History</h4>
+
+<p>Almost exactly two months ago, I <a href="/2009/09/21/introducing-%0Aswiftsuspenders/">announced</a> the first public version of SwiftSuspenders, my DI/ IoC
+solution for AS3.</p>
+
+<p>In that announcement I proposed that SwiftSuspenders might be finished and
+probably wouldn&rsquo;t receive many changes anymore. Well, as it turns out, that
+was ridiculously wrong. Starting with version 0.8.1, the
+<a href="http://www.robotlegs.org/">Robotlegs</a> framework bundled SwiftSuspenders and
+as of Robotlegs version 0.9.1, it&rsquo;s the only bundled DI solution, with
+adapters for other solutions available in their own github projects.</p>
+
+<h4>The Contributions</h4>
+
+<p>Combined with a huge increase of popularity of Robotlegs, this caused a
+constant influx of not only demands for features and bugfixes in
+SwiftSuspenders, but also design feedback and substantial contributions from
+<a href="http://shaun.boyblack.co.za/blog/">Shaun Smith</a>, <a href="http://joelhooks.com/">Joel Hooks</a> and <a href="http://www.robertpenner.com/">Robert Penner</a>.</p>
+
+<h4>The Release</h4>
+
+<p>Based on this feedback and in large parts thanks to these contributions, I&rsquo;m
+happy to announce the release of a much improved <a href="http://github.com/tschneidereit/SwiftSuspenders/downloads">SwiftSuspenders 1.0</a>!</p>
+
+<p>Contained in this release are many improvements over my initial beta release:</p>
+
+<ul>
+<li>setter injection</li>
+<li>method and constructor injection with optional arguments</li>
+<li>[PostConstruct] metadata annotations, allowing method invocation after the injection process completed</li>
+<li>XML configuration of injection points, enabling developers to use SwiftSuspenders in Flash Pro, which doesn&rsquo;t support custom metadata</li>
+<li>Injector#mapRule, enabling mapping multiple requests to the same response configuration</li>
+<li>much improved unit tests</li>
+<li>countless bugfixes</li>
+<li>an even cleaner codebase</li>
+</ul>
+
+
+<h4>The Future</h4>
+
+<p>As outlined in <a href="http://groups.google.com/group/robotlegs/browse_thread/thread/183e138803feaed4/fe6f792681162eaa?lnk=raot#fe6f792681162eaa">this thread</a> in
+the <a href="http://groups.google.com/group/robotlegs">Robotlegs discussion group</a>,
+I&rsquo;m planning to tackle the &ldquo;robot legs&rdquo; problem next (for which I can&rsquo;t seem
+to find a good explanation anywhere &ndash; links are much appreciated!)</p>
+
+<p>I hope to get that done pretty quickly, so a 1.1 release might not be too far
+off.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">till</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2009-11-24T21:59:03+01:00" pubdate data-updated="true">Nov 24<span>th</span>, 2009</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/swiftsuspenders/'>swiftsuspenders</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0/" data-via="tschneidereit" data-counturl="http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/11/22/improved-reflection-support-in-flash-player-10-1/" title="Previous Post: Improved reflection support in Flash Player 10.1?">&laquo; Improved reflection support in Flash Player 10.1?</a>
+      
+      
+        <a class="basic-alignment right" href="/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/" title="Next Post: SwiftSuspenders 1.5, or: A tale of robots and refactorings">SwiftSuspenders 1.5, or: A tale of robots and refactorings &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/05/14/editing-git-commit-messages-with-sublime-text-2/">Editing Git and Mercurial Commit Messages With Sublime Text 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/">Setting Up Eclipse CDT To Work On SpiderMonkey</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/12/13/on-beginnings/">On Beginnings</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/">Flash >= CS5 and version control: Of binary data and wasted bandwidth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/tschneidereit">@tschneidereit</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'tschneidereit',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("tschneidereit", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/tschneidereit" class="twitter-follow-button" data-show-count="false">Follow @tschneidereit</a>
+  
+</section>
+
+<section>
+  <h1>Sometimes, I speak</h1>
+  <a href='http://www.fitc.ca/events/speakers/speaker.cfm?event=125&speaker_id=13275' target='_blank'><img src='/images/badges/AM12_Speaker.jpg'/></a>
+  <a href='http://www.tryharder.org.uk/' target='_blank'><img src='/images/badges/i_will_try_harder.jpg'/></a>
+  <a href='http://www.beyondtellerrand.com/ffk11/speakers_sessions.php#schneidereit' target='_blank'><img src='/images/badges/ffk11.png'/></a>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Till Schneidereit -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tillschneidereit';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0/';
+        var disqus_url = 'http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

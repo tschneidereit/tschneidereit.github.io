@@ -1,0 +1,501 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>SwiftSuspenders 1.5, or: A tale of robots and refactorings - Till Schneidereit</title>
+  <meta name="author" content="Till Schneidereit">
+
+  
+  <meta name="description" content="Nearly half a year ago, I released
+SwiftSuspenders 1.0. As hinted at in the related blog post,
+this new release contains a solution to the &ldquo; &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/feed/" rel="alternate" title="Till Schneidereit" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-10759382-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Till Schneidereit</a></h1>
+  
+    <h2>Virtualizing machines since not that long</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/feed/" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:tschneidereit.github.com" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">SwiftSuspenders 1.5, or: A tale of robots and refactorings</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-15T17:41:01+02:00" pubdate data-updated="true">May 15<span>th</span>, 2010</time>
+        
+         | <a href="#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Nearly half a year ago, I released
+<a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> 1.0.</p>
+
+<p>As hinted at in the <a href="http://www.tillschneidereit.de/2009/11/24/announcing-swiftsuspenders-1-0/">related blog post</a>,
+this new release contains a solution to the &ldquo;Robot Legs Problem&rdquo;: and it goes by the name of <em>Child Injectors</em>.</p>
+
+<p>So, why would robot legs pose a problem for a dependency injection container,
+you ask. In short: They don&rsquo;t &ndash; their creation does. See, DI containers are
+all about creating object graphs. That is: They allow you to create complex,
+nested trees of objects in an automated fashion.</p>
+
+<p>Want to build a car? You can either go about it manually from the outside in:
+You create the car&rsquo;s shell, then you realize that your car probably needs an
+engine. You put that in, at which point you realize that your engine will need
+need cylinders, so you add some of those, and so on.</p>
+
+<p>Or, you can use a DI container and do everything the other way around: You
+first create a collection of all the parts your car will consist of, and then
+you tell the DI container to instantiate the outermost part &ndash; the shell. The
+container inspects the shell and sees that it needs some parts, like an
+engine. It then looks through the set of parts you supplied, and adds those
+that fit the dependencies of the shell. In doing so, each of the parts is
+itself inspected and all its dependencies are fulfilled, recursively.</p>
+
+<p>Now, imagine you want to build a robot. Robots aren&rsquo;t really special in any
+way that&rsquo;s interesting for DI containers at all. It&rsquo;s just that their
+construction is commonly used to explain a problem that you&rsquo;ll sooner or later
+encounter if you use DI containers to create complex objects.</p>
+
+<h4>What is the Robot Legs Problem?</h4>
+
+<p>The robot legs problem describes the difficulties that one experiences when
+trying to construct structures with two or more sub-trees that are very
+similar, but not identical to one another.</p>
+
+<p>See, that robot, it&rsquo;s supposed to look like a human being in many ways: It&rsquo;ll
+have a head, a torso, two arms and two legs. But there&rsquo;s an important
+difference to a human: The robot is much, much simpler. For example, parts of
+this robot&rsquo;s legs are identical for both sides. Now ideally, if you&rsquo;ve got two
+knee joints that are entirely identical to one another, you only want to
+define them once. The problem is that for our robot, there are parts further
+down the legs that differ for each side. say the knee joints are identical,
+but the ankles are slightly different for each leg. How is the DI container
+supposed to know that it has to supply different parts somewhere down the leg
+if some intermediary parts are identical? It can&rsquo;t. Well, not without some
+help, at least.</p>
+
+<p><strong><em>That&rsquo;s the Robot Legs Problem.</em></strong></p>
+
+<p>There are (at least) two solutions to this problem: Either you add some
+differentiating attribute to the knee joints and all other parts that are
+really the same, functionally; or you somehow add information to the DI
+container&rsquo;s configuration that lets it figure out the differences from the
+outside.</p>
+
+<p>The first option isn&rsquo;t really attractive, but it&rsquo;s the easiest from a
+conceptual point of view: Instead of having one class <code>Knee</code>, you create two classes, <code>LeftKnee</code> and <code>RightKnee</code>, both extending <code>Knee</code>. The only thing that differs for these classes
+is that they define dependencies for <code>LeftAnkle</code>
+and <code>RightAnkle</code> respectively (I&rsquo;m leaving out
+any intermediary parts such as bones here for reasons of simplicity. For your
+own, real-world, robot, you&rsquo;d probably want to have some of those). Apart from
+adding a lot of boiler-plate code (imagine this with your real-world robot
+that has about 53 parts in each leg that are functionally entirely identical
+for both sides!), this creates serious problems in terms of separation of
+concerns and encapsulation: If the knees truly are functionally identical,
+it&rsquo;s none of their business to know anything about which leg they are added
+to.</p>
+
+<h4>What kind of solution does <a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> provide?</h4>
+
+<p>Obviously, we want to use the second solution &ndash; and with
+<a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> 1.5, we
+finally can. The solution comes in the form of child injectors.</p>
+
+<p>Child injectors are simple things: They try to satisfy all dependencies
+themselves, but if they can&rsquo;t find a mapping for one, they turn to their
+parent and ask if it has a corresponding mapping. Really, they&rsquo;re kinda dumb.</p>
+
+<p>But here&rsquo;s the thing:
+<a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> lets you
+create trees of dependency mappings that use different child injectors to
+satisfy recursive dependencies. In our example, you&rsquo;d create rules for the
+<code>LeftHip</code> and the <code>RightHip</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">var</span> <span class="n">injector</span> <span class="p">:</span>
+</span><span class='line'><span class="kt">Injector</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">Injector</span><span class="o">();</span>
+</span><span class='line'><span class="kd">var</span> <span class="n">leftHipRule</span> <span class="p">:</span> <span class="kt">InjectionConfig</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">mapClass</span><span class="o">(</span><span class="n">LeftHip</span><span class="o">,</span> <span class="n">LeftHip</span><span class="o">);</span>
+</span><span class='line'><span class="kd">var</span> <span class="n">rightHipRule</span> <span class="p">:</span> <span class="kt">InjectionConfig</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">mapClass</span><span class="o">(</span><span class="n">RightHip</span><span class="o">,</span> <span class="n">RightHip</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Now in order to differentiate further down the leg, we create parallel structures for both legs in separate
+injectors. But first, we need to create and set these injectors:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="c1">//let your main injector create a child injector:</span>
+</span><span class='line'><span class="kd">var</span> <span class="n">leftLegInjector</span> <span class="p">:</span> <span class="kt">Injector</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">createChildInjector</span><span class="o">();</span>
+</span><span class='line'><span class="c1">//you can also create a new injector and set its parent:</span>
+</span><span class='line'><span class="kd">var</span> <span class="n">rightLegInjector</span> <span class="p">:</span> <span class="kt">Injector</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">Injector</span><span class="o">();</span>
+</span><span class='line'><span class="n">rightLegInjector</span><span class="o">.</span><span class="na">setParentInjector</span><span class="o">(</span><span class="n">injector</span><span class="o">);</span>
+</span><span class='line'><span class="c1">//Let SwiftSuspenders use the child injectors from the hip on down the leg:</span>
+</span><span class='line'><span class="n">leftHipRule</span><span class="o">.</span><span class="na">setInjector</span><span class="o">(</span><span class="n">leftLegInjector</span><span class="o">);</span>
+</span><span class='line'><span class="n">rightHipRule</span><span class="o">.</span><span class="na">setInjector</span><span class="o">(</span><span class="n">rightLegInjector</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With this, our injectors are all set up as we need them &ndash; on to the remaining injection mappings.</p>
+
+<p>Both <code>LeftHip</code> and <code>RightHip</code> have a dependency (and I&rsquo;m leaving out the thigh here)</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="o">[</span><span class="n">Inject</span><span class="o">]</span> <span class="kd">public</span> <span class="kd">var</span> <span class="n">knee</span> <span class="p">:</span> <span class="kt">Knee</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>As this dependency is the same in both legs, we can safely add it to the main injector:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">injector</span><span class="o">.</span><span class="na">mapClass</span><span class="o">(</span><span class="n">Knee</span><span class="o">,</span> <span class="n">Knee</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Upon not finding a rule for the <code>Knee</code> dependency,
+the child injectors will turn to their parent and get the rule we just
+defined. After using that to inject the <code>Knee</code>,
+they will continue on down the tree of dependencies. The <code>Knee</code> has a dependency for an <code>Ankle</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="o">[</span><span class="n">Inject</span><span class="o">]</span> <span class="kd">public</span>
+</span><span class='line'><span class="kd">var</span> <span class="n">ankle</span> <span class="p">:</span> <span class="kt">Ankle</span><span class="o">;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Not that the <code>Knee</code>
+would care, but this field is actually supposed to contain a different value,
+depending on which leg the <code>Knee</code> is added to!
+Because of that, we have to add different mappings to the child injectors:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">leftLegInjector</span><span class="o">.</span><span class="na">mapClass</span><span class="o">(</span><span class="n">Ankle</span><span class="o">,</span> <span class="n">LeftAnkle</span><span class="o">);</span>
+</span><span class='line'><span class="n">rightLegInjector</span><span class="o">.</span><span class="na">mapClass</span><span class="o">(</span><span class="n">Ankle</span><span class="o">,</span> <span class="n">RightAnkle</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And with that, we&rsquo;re done with the configuration! Assembling our robot is now a simple matter of letting
+our injector instantiate the class <code>Robot</code>,
+which of course defines dependencies for <code>LeftHip</code> and <code>RightHip</code>:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">var</span> <span class="n">myRobot</span> <span class="p">:</span> <span class="kt">Robot</span> <span class="o">=</span> <span class="n">injector</span><span class="o">.</span><span class="na">instantiate</span><span class="o">(</span><span class="n">Robot</span><span class="o">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>Great! And what about the refactorings?</h4>
+
+<p>Right, the refactorings. Those have been applied to the
+<a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> source
+code. Lots of them, in fact. Their primary goal was to support child
+injectors, but they also lead to a much cleaner separation of concerns.
+Basically, there are now three basic building blocks in
+<a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a>, each with
+their own very specific concern:</p>
+
+<ul>
+<li>The <code>Injector</code>, which acts as the facade to the entire system and keeps everything together</li>
+<li>The <code>InjectionConfig</code>, which acts as the broker between injection points and injection results</li>
+<li>Several kinds of <code>InjectionResult</code>s, which are held by <code>InjectionConfig</code>s and generate or keep the value that&rsquo;s injected into injection points</li>
+</ul>
+
+
+<p>In the future, <a href="http://www.youtube.com/watch?v=ATFxVB4JFpQ">robotic beings will rule the world</a>. Well, that, and the
+aforementioned refactorings will allow for a better syntax for defining
+injection mappings. Something along the lines of <code>injector.map(MyInterface, 'named').toClass(MyClass);</code>. But that&rsquo;s going to happen in the year 2000. Or version 2.0, I&rsquo;m not sure.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">till</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2010-05-15T17:41:01+02:00" pubdate data-updated="true">May 15<span>th</span>, 2010</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/actionscript/'>ActionScript</a>, <a class='category' href='/categories/projects/'>Projects</a>, <a class='category' href='/categories/swiftsuspenders/'>swiftsuspenders</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/" data-via="tschneidereit" data-counturl="http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/" >Tweet</a>
+  
+  
+  <div class="g-plusone" data-size="medium"></div>
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/2009/11/24/announcing-swiftsuspenders-1-0/" title="Previous Post: Announcing SwiftSuspenders 1.0">&laquo; Announcing SwiftSuspenders 1.0</a>
+      
+      
+        <a class="basic-alignment right" href="/2011/01/14/dictionaries-in-as3-a-tale-of-awesomeness-and-restrictions/" title="Next Post: Dictionaries in AS3: A tale of awesomeness and restrictions">Dictionaries in AS3: A tale of awesomeness and restrictions &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/2012/05/14/editing-git-commit-messages-with-sublime-text-2/">Editing Git and Mercurial Commit Messages With Sublime Text 2</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/">Setting Up Eclipse CDT To Work On SpiderMonkey</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/12/13/on-beginnings/">On Beginnings</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/">Flash >= CS5 and version control: Of binary data and wasted bandwidth</a>
+      </li>
+    
+      <li class="post">
+        <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/tschneidereit">@tschneidereit</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'tschneidereit',
+            count: 3,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+<section>
+  <h1>Latest Tweets</h1>
+  <ul id="tweets">
+    <li class="loading">Status updating...</li>
+  </ul>
+  <script type="text/javascript">
+    $.domReady(function(){
+      getTwitterFeed("tschneidereit", 4, false);
+    });
+  </script>
+  <script src="/javascripts/twitter.js" type="text/javascript"> </script>
+  
+    <a href="http://twitter.com/tschneidereit" class="twitter-follow-button" data-show-count="false">Follow @tschneidereit</a>
+  
+</section>
+
+<section>
+  <h1>Sometimes, I speak</h1>
+  <a href='http://www.fitc.ca/events/speakers/speaker.cfm?event=125&speaker_id=13275' target='_blank'><img src='/images/badges/AM12_Speaker.jpg'/></a>
+  <a href='http://www.tryharder.org.uk/' target='_blank'><img src='/images/badges/i_will_try_harder.jpg'/></a>
+  <a href='http://www.beyondtellerrand.com/ffk11/speakers_sessions.php#schneidereit' target='_blank'><img src='/images/badges/ffk11.png'/></a>
+</section>
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Till Schneidereit -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'tillschneidereit';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/';
+        var disqus_url = 'http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = 'http://' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var script = document.createElement('script'); script.type = 'text/javascript'; script.async = true;
+      script.src = 'https://apis.google.com/js/plusone.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(script, s);
+    })();
+  </script>
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
