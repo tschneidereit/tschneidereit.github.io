@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: personal | Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.com/categories/personal/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.com/"/>
-  <updated>2013-07-01T05:16:53+02:00</updated>
-  <id>http://tschneidereit.github.com/</id>
+  <link href="http://tschneidereit.github.io/categories/personal/atom.xml" rel="self"/>
+  <link href="http://tschneidereit.github.io/"/>
+  <updated>2013-07-01T05:27:23+02:00</updated>
+  <id>http://tschneidereit.github.io/</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[On Beginnings]]></title>
-    <link href="http://tschneidereit.github.com/2011/12/13/on-beginnings/"/>
+    <link href="http://tschneidereit.github.io/2011/12/13/on-beginnings/"/>
     <updated>2011-12-13T15:06:00+01:00</updated>
-    <id>http://tschneidereit.github.com/2011/12/13/on-beginnings</id>
+    <id>http://tschneidereit.github.io/2011/12/13/on-beginnings</id>
     <content type="html"><![CDATA[<p>On December 31, 1995, Calvin and Hobbes <a href="http://www.gocomics.com/calvinandhobbes/1995/12/31">boarded their sled and took off</a> into the blank canvas that to them was the stark white, freshly snow-covered scenery.</p>
 
 <p>That&rsquo;s not what this post is about. At least in part, it is, however, about endings. Just as that last comic strip Bill Watterson ever published.</p>
@@ -42,9 +42,9 @@
   
   <entry>
     <title type="html"><![CDATA[Introduction]]></title>
-    <link href="http://tschneidereit.github.com/2009/06/06/introduction/"/>
+    <link href="http://tschneidereit.github.io/2009/06/06/introduction/"/>
     <updated>2009-06-06T18:39:04+02:00</updated>
-    <id>http://tschneidereit.github.com/2009/06/06/introduction</id>
+    <id>http://tschneidereit.github.io/2009/06/06/introduction</id>
     <content type="html"><![CDATA[<p>To the world at large and you who is reading this in particular: Hello!</p>
 
 <p>As seems pertinent for an introductory blog post, let me tell you a little bit

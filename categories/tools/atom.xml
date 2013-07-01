@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Tools | Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.com/categories/tools/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.com/"/>
-  <updated>2013-07-01T05:16:53+02:00</updated>
-  <id>http://tschneidereit.github.com/</id>
+  <link href="http://tschneidereit.github.io/categories/tools/atom.xml" rel="self"/>
+  <link href="http://tschneidereit.github.io/"/>
+  <updated>2013-07-01T05:27:23+02:00</updated>
+  <id>http://tschneidereit.github.io/</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Editing Git and Mercurial Commit Messages With Sublime Text 2]]></title>
-    <link href="http://tschneidereit.github.com/2012/05/14/editing-git-commit-messages-with-sublime-text-2/"/>
+    <link href="http://tschneidereit.github.io/2012/05/14/editing-git-commit-messages-with-sublime-text-2/"/>
     <updated>2012-05-14T01:37:00+02:00</updated>
-    <id>http://tschneidereit.github.com/2012/05/14/editing-git-commit-messages-with-sublime-text-2</id>
+    <id>http://tschneidereit.github.io/2012/05/14/editing-git-commit-messages-with-sublime-text-2</id>
     <content type="html"><![CDATA[<p>Not only is <a href="http://www.sublimetext.com/">Sublime Text 2</a> a fabulous code editor &ndash; it also works very well as an editor for shell commands.</p>
 
 <p>At least for me, a major use-case for invoking an editor from the shell is editing commit messages in <a href="http://git-scm.com/">Git</a> and <a href="http://mercurial.selenic.com/">Mercurial</a>. Now simply setting <code>sub</code>, the shell command for invoking Sublime Text 2, as Git&rsquo;s or Mercurial&rsquo;s editor won&rsquo;t work for that: sub returns immediately instead of waiting for the commit message to be written and saved.</p>

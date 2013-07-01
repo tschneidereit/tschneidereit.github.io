@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.com/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.com/"/>
-  <updated>2013-07-01T05:16:53+02:00</updated>
-  <id>http://tschneidereit.github.com/</id>
+  <link href="http://tschneidereit.github.io/atom.xml" rel="self"/>
+  <link href="http://tschneidereit.github.io/"/>
+  <updated>2013-07-01T05:27:23+02:00</updated>
+  <id>http://tschneidereit.github.io/</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Editing Git and Mercurial Commit Messages With Sublime Text 2]]></title>
-    <link href="http://tschneidereit.github.com/2012/05/14/editing-git-commit-messages-with-sublime-text-2/"/>
+    <link href="http://tschneidereit.github.io/2012/05/14/editing-git-commit-messages-with-sublime-text-2/"/>
     <updated>2012-05-14T01:37:00+02:00</updated>
-    <id>http://tschneidereit.github.com/2012/05/14/editing-git-commit-messages-with-sublime-text-2</id>
+    <id>http://tschneidereit.github.io/2012/05/14/editing-git-commit-messages-with-sublime-text-2</id>
     <content type="html"><![CDATA[<p>Not only is <a href="http://www.sublimetext.com/">Sublime Text 2</a> a fabulous code editor &ndash; it also works very well as an editor for shell commands.</p>
 
 <p>At least for me, a major use-case for invoking an editor from the shell is editing commit messages in <a href="http://git-scm.com/">Git</a> and <a href="http://mercurial.selenic.com/">Mercurial</a>. Now simply setting <code>sub</code>, the shell command for invoking Sublime Text 2, as Git&rsquo;s or Mercurial&rsquo;s editor won&rsquo;t work for that: sub returns immediately instead of waiting for the commit message to be written and saved.</p>
@@ -44,9 +44,9 @@
   
   <entry>
     <title type="html"><![CDATA[Setting Up Eclipse CDT To Work On SpiderMonkey]]></title>
-    <link href="http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/"/>
+    <link href="http://tschneidereit.github.io/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/"/>
     <updated>2012-05-09T14:01:00+02:00</updated>
-    <id>http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey</id>
+    <id>http://tschneidereit.github.io/2012/05/09/setting-up-cdt-to-work-on-spidermonkey</id>
     <content type="html"><![CDATA[<p><em>Note: This text has since been <a href="https://developer.mozilla.org/en/SpiderMonkey/Setting_up_CDT_to_work_on_SpiderMonkey">added to MDN</a>, so that version is very likely to be more up-to-date than this one, depending on when you&rsquo;re reading this.</em></p>
 
 <p>The version of <a href="http://wiki.eclipse.org/CDT/">Eclipse&rsquo;s CDT</a> that&rsquo;s will be released with the <a href="">next major release of Eclipse, codenamed &ldquo;Juno&rdquo;</a>, has <a href="http://wiki.eclipse.org/CDT/User/NewIn81">some pretty decent features</a> that make it an attractive environment to work in.</p>
@@ -142,9 +142,9 @@ Paths, Macros etc.&rdquo; settings panel, select the &ldquo;Providers&rdquo; tab
   
   <entry>
     <title type="html"><![CDATA[On Beginnings]]></title>
-    <link href="http://tschneidereit.github.com/2011/12/13/on-beginnings/"/>
+    <link href="http://tschneidereit.github.io/2011/12/13/on-beginnings/"/>
     <updated>2011-12-13T15:06:00+01:00</updated>
-    <id>http://tschneidereit.github.com/2011/12/13/on-beginnings</id>
+    <id>http://tschneidereit.github.io/2011/12/13/on-beginnings</id>
     <content type="html"><![CDATA[<p>On December 31, 1995, Calvin and Hobbes <a href="http://www.gocomics.com/calvinandhobbes/1995/12/31">boarded their sled and took off</a> into the blank canvas that to them was the stark white, freshly snow-covered scenery.</p>
 
 <p>That&rsquo;s not what this post is about. At least in part, it is, however, about endings. Just as that last comic strip Bill Watterson ever published.</p>
@@ -169,9 +169,9 @@ Paths, Macros etc.&rdquo; settings panel, select the &ldquo;Providers&rdquo; tab
   
   <entry>
     <title type="html"><![CDATA[Flash >= CS5 and version control: Of binary data and wasted bandwidth]]></title>
-    <link href="http://tschneidereit.github.com/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/"/>
+    <link href="http://tschneidereit.github.io/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/"/>
     <updated>2011-10-23T17:05:27+02:00</updated>
-    <id>http://tschneidereit.github.com/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth</id>
+    <id>http://tschneidereit.github.io/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth</id>
     <content type="html"><![CDATA[<p>With the advent of Flash CS5, Adobe switched the format of <code>.fla</code>
 files from the quirky binary format it was in previous editions to what every
 self-respecting developer of document-creation tools uses nowadays: A
@@ -216,9 +216,9 @@ really simple caches that get re-created if missing.</p>
   
   <entry>
     <title type="html"><![CDATA[Mario Mushroom: Now with 80% less awesome]]></title>
-    <link href="http://tschneidereit.github.com/2011/10/22/mario-mushroom-now-with-80-less-awesome/"/>
+    <link href="http://tschneidereit.github.io/2011/10/22/mario-mushroom-now-with-80-less-awesome/"/>
     <updated>2011-10-22T14:34:04+02:00</updated>
-    <id>http://tschneidereit.github.com/2011/10/22/mario-mushroom-now-with-80-less-awesome</id>
+    <id>http://tschneidereit.github.io/2011/10/22/mario-mushroom-now-with-80-less-awesome</id>
     <content type="html"><![CDATA[<p><strong>tl;dr:</strong>
 Don&rsquo;t use the Mario Mushroom Operator if you don&rsquo;t want your setter to be
 invoked more than once.</p>
@@ -308,9 +308,9 @@ care about the overhead associated with double-setting values needlessly.
   
   <entry>
     <title type="html"><![CDATA[SwiftSuspenders 1.6: A Tale of Small Changes and Big Plans]]></title>
-    <link href="http://tschneidereit.github.com/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans/"/>
+    <link href="http://tschneidereit.github.io/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans/"/>
     <updated>2011-02-05T16:15:28+01:00</updated>
-    <id>http://tschneidereit.github.com/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans</id>
+    <id>http://tschneidereit.github.io/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans</id>
     <content type="html"><![CDATA[<p>I just released version 1.6 of my not-so-small-anymore IoC container
 <a href="https://github.com/tschneidereit/SwiftSuspenders">SwiftSuspenders</a>. This
 release marks the end of the line for 1.x-releases, all future development
@@ -501,9 +501,9 @@ release (which in turn depends on when we decide to release Robotlegs 2.0), I
   
   <entry>
     <title type="html"><![CDATA[Dictionaries in AS3: A tale of awesomeness and restrictions]]></title>
-    <link href="http://tschneidereit.github.com/2011/01/14/dictionaries-in-as3-a-tale-of-awesomeness-and-restrictions/"/>
+    <link href="http://tschneidereit.github.io/2011/01/14/dictionaries-in-as3-a-tale-of-awesomeness-and-restrictions/"/>
     <updated>2011-01-14T12:38:13+01:00</updated>
-    <id>http://tschneidereit.github.com/2011/01/14/dictionaries-in-as3-a-tale-of-awesomeness-and-restrictions</id>
+    <id>http://tschneidereit.github.io/2011/01/14/dictionaries-in-as3-a-tale-of-awesomeness-and-restrictions</id>
     <content type="html"><![CDATA[<p><strong>Update:</strong> <a href="http://twitter.com/stray_and_ruby">@stray_and_ruby</a> kindly made me aware of the fact that it isn&rsquo;t entirely obvious what this post is about. I&rsquo;m talking about a fairly obscure, but really handy usage of the <a href="http://www.adobe.com/livedocs/flash/9.0/ActionScriptLangRefV3/flash/utils/Dictionary.html">Dictionary class</a>: Implementing weak references to objects.<br/>
 <a href="https://twitter.com/sunjammer">@sunjammer</a> recently <a href="http://www.doomsday.no/esn/2011/01/using-the-as3-dictionary-utility/">posted about the Dictionary class in AS3</a>. I agree with him: Dictionaries are awesome.</p>
 
@@ -608,9 +608,9 @@ of people out there whose life can be improved by such a service.)</em></p>
   
   <entry>
     <title type="html"><![CDATA[SwiftSuspenders 1.5, or: A tale of robots and refactorings]]></title>
-    <link href="http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/"/>
+    <link href="http://tschneidereit.github.io/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/"/>
     <updated>2010-05-15T17:41:01+02:00</updated>
-    <id>http://tschneidereit.github.com/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings</id>
+    <id>http://tschneidereit.github.io/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings</id>
     <content type="html"><![CDATA[<p>Nearly half a year ago, I released
 <a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> 1.0.</p>
 
@@ -802,12 +802,12 @@ injection mappings. Something along the lines of <code>injector.map(MyInterface,
   
   <entry>
     <title type="html"><![CDATA[Announcing SwiftSuspenders 1.0]]></title>
-    <link href="http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0/"/>
+    <link href="http://tschneidereit.github.io/2009/11/24/announcing-swiftsuspenders-1-0/"/>
     <updated>2009-11-24T21:59:03+01:00</updated>
-    <id>http://tschneidereit.github.com/2009/11/24/announcing-swiftsuspenders-1-0</id>
+    <id>http://tschneidereit.github.io/2009/11/24/announcing-swiftsuspenders-1-0</id>
     <content type="html"><![CDATA[<h4>The History</h4>
 
-<p>Almost exactly two months ago, I <a href="http://tschneidereit.github.com/2009/09/21/introducing-%0Aswiftsuspenders/">announced</a> the first public version of SwiftSuspenders, my DI/ IoC
+<p>Almost exactly two months ago, I <a href="http://tschneidereit.github.io/2009/09/21/introducing-%0Aswiftsuspenders/">announced</a> the first public version of SwiftSuspenders, my DI/ IoC
 solution for AS3.</p>
 
 <p>In that announcement I proposed that SwiftSuspenders might be finished and
@@ -857,9 +857,9 @@ off.</p>
   
   <entry>
     <title type="html"><![CDATA[Improved reflection support in Flash Player 10.1?]]></title>
-    <link href="http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1/"/>
+    <link href="http://tschneidereit.github.io/2009/11/22/improved-reflection-support-in-flash-player-10-1/"/>
     <updated>2009-11-22T01:23:14+01:00</updated>
-    <id>http://tschneidereit.github.com/2009/11/22/improved-reflection-support-in-flash-player-10-1</id>
+    <id>http://tschneidereit.github.io/2009/11/22/improved-reflection-support-in-flash-player-10-1</id>
     <content type="html"><![CDATA[<h4>describeTypeJSON</h4>
 
 <p>So it looks like Flash Player 10.1 <em>might</em> support a somewhat improved
@@ -880,7 +880,7 @@ playerglobal.swc that can be <a href="http://labs.adobe.com/downloads/flashplaye
 
 <p>This package contains a few methods and an assortment of constants:</p>
 
-<p><img src="http://tschneidereit.github.com/images/posts/2009/11/reflection-in-fp-10_1.png" alt="reflection in fp 10.1" /></p>
+<p><img src="http://tschneidereit.github.io/images/posts/2009/11/reflection-in-fp-10_1.png" alt="reflection in fp 10.1" /></p>
 
 <p>The most (or only, really) interesting of these is
 <code>DescribeType.describeTypeJSON</code>. Using this method, it&rsquo;s possible to retrieve
@@ -1014,9 +1014,9 @@ stay that way in the final release seems odd.</p>
   
   <entry>
     <title type="html"><![CDATA[Introducing SwiftSuspenders]]></title>
-    <link href="http://tschneidereit.github.com/2009/09/21/introducing-swiftsuspenders/"/>
+    <link href="http://tschneidereit.github.io/2009/09/21/introducing-swiftsuspenders/"/>
     <updated>2009-09-21T16:20:43+02:00</updated>
-    <id>http://tschneidereit.github.com/2009/09/21/introducing-swiftsuspenders</id>
+    <id>http://tschneidereit.github.io/2009/09/21/introducing-swiftsuspenders</id>
     <content type="html"><![CDATA[<h4>Working with RobotLegs</h4>
 
 <p>Recently, I started working with the awesome MVCS framework
@@ -1068,9 +1068,9 @@ bindings.</p>
   
   <entry>
     <title type="html"><![CDATA[On finding Unicode ranges]]></title>
-    <link href="http://tschneidereit.github.com/2009/06/06/on-finding-unicode-ranges/"/>
+    <link href="http://tschneidereit.github.io/2009/06/06/on-finding-unicode-ranges/"/>
     <updated>2009-06-06T20:14:20+02:00</updated>
-    <id>http://tschneidereit.github.com/2009/06/06/on-finding-unicode-ranges</id>
+    <id>http://tschneidereit.github.io/2009/06/06/on-finding-unicode-ranges</id>
     <content type="html"><![CDATA[<p>Most people don&rsquo;t think in <a href="http://en.wikipedia.org/wiki/Code_points">code points</a> &ndash; which seems like a pretty
 good state of the world to me.</p>
 
@@ -1100,15 +1100,15 @@ a small JavaScript tool, which allows you to enter ranges of characters or
 just a bunch of text, which it then converts into an optimally reduced set of
 Unicode ranges.</p>
 
-<p><a href="http://tschneidereit.github.com/assets/unicode-range-tool/unicode_range_tool.html">You can find this tool here, I hope you find it useful and not too ugly.</a></p>
+<p><a href="http://tschneidereit.github.io/assets/unicode-range-tool/unicode_range_tool.html">You can find this tool here, I hope you find it useful and not too ugly.</a></p>
 ]]></content>
   </entry>
   
   <entry>
     <title type="html"><![CDATA[Introduction]]></title>
-    <link href="http://tschneidereit.github.com/2009/06/06/introduction/"/>
+    <link href="http://tschneidereit.github.io/2009/06/06/introduction/"/>
     <updated>2009-06-06T18:39:04+02:00</updated>
-    <id>http://tschneidereit.github.com/2009/06/06/introduction</id>
+    <id>http://tschneidereit.github.io/2009/06/06/introduction</id>
     <content type="html"><![CDATA[<p>To the world at large and you who is reading this in particular: Hello!</p>
 
 <p>As seems pertinent for an introductory blog post, let me tell you a little bit

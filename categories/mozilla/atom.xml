@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Mozilla | Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.com/categories/mozilla/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.com/"/>
-  <updated>2013-07-01T05:16:53+02:00</updated>
-  <id>http://tschneidereit.github.com/</id>
+  <link href="http://tschneidereit.github.io/categories/mozilla/atom.xml" rel="self"/>
+  <link href="http://tschneidereit.github.io/"/>
+  <updated>2013-07-01T05:27:23+02:00</updated>
+  <id>http://tschneidereit.github.io/</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Setting Up Eclipse CDT To Work On SpiderMonkey]]></title>
-    <link href="http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/"/>
+    <link href="http://tschneidereit.github.io/2012/05/09/setting-up-cdt-to-work-on-spidermonkey/"/>
     <updated>2012-05-09T14:01:00+02:00</updated>
-    <id>http://tschneidereit.github.com/2012/05/09/setting-up-cdt-to-work-on-spidermonkey</id>
+    <id>http://tschneidereit.github.io/2012/05/09/setting-up-cdt-to-work-on-spidermonkey</id>
     <content type="html"><![CDATA[<p><em>Note: This text has since been <a href="https://developer.mozilla.org/en/SpiderMonkey/Setting_up_CDT_to_work_on_SpiderMonkey">added to MDN</a>, so that version is very likely to be more up-to-date than this one, depending on when you&rsquo;re reading this.</em></p>
 
 <p>The version of <a href="http://wiki.eclipse.org/CDT/">Eclipse&rsquo;s CDT</a> that&rsquo;s will be released with the <a href="">next major release of Eclipse, codenamed &ldquo;Juno&rdquo;</a>, has <a href="http://wiki.eclipse.org/CDT/User/NewIn81">some pretty decent features</a> that make it an attractive environment to work in.</p>
