@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Unicode range to char list converter</title>
+<link href="wforms.css" type="text/css" rel="stylesheet"  />
+<script type="text/javascript" src="unicode_to_chars.js"></script>
+<script type="text/javascript" src="chars_to_unicode.js"></script>
+</head>
+<body>
+	<form name="toUnicode" action="" onsubmit="return displayUnicodeRange()">
+		<fieldset style='display:inline;'>
+			<legend>From Char list to Unicode Ranges</legend>
+			<label for="ranges">Ranges in the form [start]-[end],[start2]-[end2] ... (e.g. a-Z,A-Z):</label>
+			<br/>
+			<textarea name="ranges" rows="5" cols="100"></textarea>
+			<br/>
+			
+			<label for="input">Additional Characters (duplicates are ok):</label>
+			<br/>
+			<textarea name="input" rows="5" cols="100"></textarea>
+			<br/>
+			<input type="submit" value="Convert to Unicode range"/>
+			<br/>
+			<label for="output">Unicode Ranges:</label>
+			<br/>
+			<textarea name="output" rows="3" cols="100"></textarea>
+		</fieldset>
+	</form>
+	
+	<form name="fromUnicode" action="" onsubmit="return displayCharList()">
+		<fieldset style='display:inline;'>
+			<legend>From Unicode Ranges to Char list</legend>
+			<label for="ranges">Unicode Ranges:</label>
+			<br/>
+			<textarea name="ranges" rows="5" cols="100"></textarea>
+			<br/>
+			
+			<input type="submit" value="Convert to Char list"/>
+			<br/>
+			<label for="output">Unicode Ranges:</label>
+			<br/>
+			<textarea name="output" rows="3" cols="100"></textarea>
+		</fieldset>
+	</form>
+</body>
+</html>
