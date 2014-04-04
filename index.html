@@ -9,7 +9,7 @@
   <meta name="author" content="Till Schneidereit">
 
   
-  <meta name="description" content="Not only is Sublime Text 2 a fabulous code editor &ndash; it also works very well as an editor for shell commands. At least for me, a major use-case &hellip;">
+  <meta name="description" content="This Open Web thing? Brendan Eich spent the last 20 years helping to create, then save, then grow it. It might still exist in some meaningful form &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -78,6 +78,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2014/04/03/on-brendans-success/">On Brendan&#8217;s Success</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-04-03T23:13:00+02:00" pubdate data-updated="true">Apr 3<span>rd</span>, 2014</time>
+        
+         | <a href="/2014/04/03/on-brendans-success/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This Open Web thing? <a href="http://brendaneich.com/">Brendan Eich</a> spent the last 20 years helping to create, then save, then grow it. It might still exist in some meaningful form without him. It might not.</p>
+
+<p>Brendan has stated his motivation for this work over and over again: to enable free speech. I&rsquo;m sure he likes it better when that speech agrees with his own opinions. I know that he sees not just the freedom of speech but, more to the point, ways to efficiently disseminate all speech as transcending his personal opinions on almost all topics.</p>
+
+<p>He succeeded fantastically well: the web is more open and better at facilitating speech than any other medium in the history of mankind. It is, as the <a href="https://www.eff.org/deeplinks/2014/04/eff-statement-mozilla-and-importance-open-internet">EFF put it</a> &ldquo;one of humanity&rsquo;s greatest accomplishments&rdquo;.</p>
+
+<p>Without this accomplishment, it&rsquo;s highly unlikely that Twitter would exist &ndash; the communications platform that enables the quick formation of movements for a cause in a way that puts everything before it to shame.</p>
+
+<p>Without this accomplishment, it&rsquo;s highly unlikely that OkCupid would exist &ndash; the dating platform that <a href="http://www.npr.org/blogs/alltechconsidered/2014/03/31/297342868/the-new-mozilla-ceos-political-past-is-imperiling-his-present">&ldquo;devoted the last ten years to bringing people—all people—together&rdquo;</a>.</p>
+
+<p>Without this accomplishment, it&rsquo;s highly unlikely Brendan would have resigned today.</p>
+
+<p>To the extend that his resignation is a victory for the LGBTQ movement, it is a victory that Brendan played a key role in enabling.</p>
+
+<p>Unquestionably, it is an impressive demonstration of the Open Web&rsquo;s power. On his role in creating it, I want to congratulate Brendan, and thank him.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -396,127 +448,6 @@ really simple caches that get re-created if missing.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2011-10-22T14:34:04+02:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2011</time>
-        
-         | <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><p><strong>tl;dr:</strong>
-Don&rsquo;t use the Mario Mushroom Operator if you don&rsquo;t want your setter to be
-invoked more than once.</p>
-
-<p><strong>Update:</strong> I totally forgot to mention that I found out about this problem with <a href="https://twitter.com/darscan">@darscan</a> while working on <a href="http://github.com/tschneidereit/SwiftSuspenders/">Swiftsuspenders</a> and <a href="http://github.com/robotlegs/robotlegs-framework/">Robotlegs</a> code.</p>
-
-<p><strong>The Details</strong>
-I think it was <a href="twitter.com/#!/robpenner/">@robpenner</a> who coined the term
-&ldquo;Mario Mushroom Operator&rdquo;.</p>
-
-<p>In case you&rsquo;re wondering, the Mario Mushroom Operator is this: <code>||=</code>.</p>
-
-<p>A good translation for how the MMO™ works seems to be this:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="k">if</span> <span class="o">(!</span><span class="n">field</span><span class="o">)</span> <span class="o">{</span> <span class="n">field</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In case you&rsquo;re still wondering, here&rsquo;s how you&rsquo;d use it:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">function </span><span class="nf">useRuntimeDefault</span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="kt">Object</span><span class="o">):</span><span class="kt">void</span> <span class="o">{</span> <span class="n">input</span>
-</span><span class='line'><span class="o">||=</span> <span class="n">getDefaultValue</span><span class="o">();</span> <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I.e., the most important use-case for the MMO™ is to apply runtime-determined
-default values for method arguments.</p>
-
-<p>Now, that&rsquo;s really useful and you might be wondering what could possibly go
-wrong with that.</p>
-
-<p>Consider this snipped of code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">private</span> <span class="kd">var</span> <span class="n">_setOnce</span> <span class="p">:</span> <span class="kt">Boolean</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">var</span> <span class="n">_value</span> <span class="p">:</span>
-</span><span class='line'><span class="kt">Object</span><span class="o">;</span>
-</span><span class='line'>
-</span><span class='line'><span class="kd">public</span> <span class="kd">function</span> <span class="kd">set</span> <span class="n">value</span><span class="o">(</span><span class="n">value</span> <span class="o">:</span> <span class="n">Object</span><span class="o">)</span> <span class="o">:</span> <span class="kc">void</span> <span class="o">{</span> <span class="k">if</span> <span class="o">(</span><span class="n">_setOnce</span><span class="o">)</span> <span class="o">{</span> <span class="k">throw</span> <span class="k">new</span>
-</span><span class='line'><span class="kt">Error</span><span class="o">(</span><span class="s1">&#39;Value can only be set once&#39;</span><span class="o">);</span> <span class="o">}</span> <span class="n">_setOnce</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="n">_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
-</span><span class='line'><span class="kd">public</span> <span class="kd">function</span> <span class="kd">get</span> <span class="n">value</span><span class="o">()</span> <span class="o">:</span> <span class="n">Object</span> <span class="o">{</span> <span class="k">return</span> <span class="n">_value</span><span class="o">;</span> <span class="o">}</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Used in a class, this code encapsulates a value that can be set exactly once,
-after which it can only be read.</p>
-
-<p>With me still? Splendid.</p>
-
-<p>In fact, you&rsquo;re probably already guessing what comes now: Using the MMO™ to
-assign this once-settable value iff it hasn&rsquo;t already been set:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">value</span> <span class="o">||=</span> <span class="o">{};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>And here, finally, things go awry. As it turns out, the MMO™&rsquo;s translation
-given earlier isn&rsquo;t quite correct. Instead, the compiler (or the VM, I haven&rsquo;t
-checked the bytecode) seems to translate our usage of the MMO™ to something
-along the following lines:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">field</span> <span class="o">=</span> <span class="n">field</span> <span class="o">?</span> <span class="n">field</span> <span class="o">:</span> <span class="o">{};</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>In summary, instead of guarding the assignment to a field as an if statement
-would do, the MMO™ only chooses between two values to use in the assignment
-like the ternary operator does.</p>
-
-<p>In case you&rsquo;re now thinking that that doesn&rsquo;t affect you because you, just as
-every sane person you know, don&rsquo;t ever have use-cases for one-time assignable
-fields, ask yourself whether you can be certain that all your setters are
-side-effect free if you re-assign the same value and that you never, ever,
-care about the overhead associated with double-setting values needlessly.
-&ldquo;Yes&rdquo; and &ldquo;yes&rdquo;? Cool. &ldquo;Mmh&rdquo; and &ldquo;not sure&rdquo;: Weep with me.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/2/">&larr; Older</a>
@@ -532,6 +463,10 @@ care about the overhead associated with double-setting values needlessly.
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/03/on-brendans-success/">On Brendan&#8217;s Success</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/05/14/editing-git-commit-messages-with-sublime-text-2/">Editing Git and Mercurial Commit Messages With Sublime Text 2</a>
       </li>
     
@@ -545,10 +480,6 @@ care about the overhead associated with double-setting values needlessly.
     
       <li class="post">
         <a href="/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/">Flash >= CS5 and version control: Of binary data and wasted bandwidth</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a>
       </li>
     
   </ul>
@@ -613,7 +544,7 @@ care about the overhead associated with double-setting values needlessly.
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Till Schneidereit -
+  Copyright &copy; 2014 - Till Schneidereit -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: personal | Till Schneidereit]]></title>
+  <title><![CDATA[Category: Personal | Till Schneidereit]]></title>
   <link href="http://tschneidereit.github.io/categories/personal/atom.xml" rel="self"/>
   <link href="http://tschneidereit.github.io/"/>
-  <updated>2013-07-02T02:59:21+02:00</updated>
+  <updated>2014-04-04T06:33:22+02:00</updated>
   <id>http://tschneidereit.github.io/</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
@@ -14,74 +14,25 @@
 
   
   <entry>
-    <title type="html"><![CDATA[On Beginnings]]></title>
-    <link href="http://tschneidereit.github.io/2011/12/13/on-beginnings/"/>
-    <updated>2011-12-13T15:06:00+01:00</updated>
-    <id>http://tschneidereit.github.io/2011/12/13/on-beginnings</id>
-    <content type="html"><![CDATA[<p>On December 31, 1995, Calvin and Hobbes <a href="http://www.gocomics.com/calvinandhobbes/1995/12/31">boarded their sled and took off</a> into the blank canvas that to them was the stark white, freshly snow-covered scenery.</p>
+    <title type="html"><![CDATA[On Brendan's Success]]></title>
+    <link href="http://tschneidereit.github.io/2014/04/03/on-brendans-success/"/>
+    <updated>2014-04-03T23:13:00+02:00</updated>
+    <id>http://tschneidereit.github.io/2014/04/03/on-brendans-success</id>
+    <content type="html"><![CDATA[<p>This Open Web thing? <a href="http://brendaneich.com/">Brendan Eich</a> spent the last 20 years helping to create, then save, then grow it. It might still exist in some meaningful form without him. It might not.</p>
 
-<p>That&rsquo;s not what this post is about. At least in part, it is, however, about endings. Just as that last comic strip Bill Watterson ever published.</p>
+<p>Brendan has stated his motivation for this work over and over again: to enable free speech. I&rsquo;m sure he likes it better when that speech agrees with his own opinions. I know that he sees not just the freedom of speech but, more to the point, ways to efficiently disseminate all speech as transcending his personal opinions on almost all topics.</p>
 
-<p>In the fall of 1999, I discovered this fantastic little tool called Macromedia Flash 4. To cut a long and boring story short, the result was that instead of going to university, I immediately kicked off my career as a professional web developer in the advertising industry. While in hindsight, that claim of professionalism was bordering on the ridiculous in its utter optimism and naïveté, the good news is: it somehow worked and while I did start university a year later, it had to take a back seat to my main occupation.</p>
+<p>He succeeded fantastically well: the web is more open and better at facilitating speech than any other medium in the history of mankind. It is, as the <a href="https://www.eff.org/deeplinks/2014/04/eff-statement-mozilla-and-importance-open-internet">EFF put it</a> &ldquo;one of humanity&rsquo;s greatest accomplishments&rdquo;.</p>
 
-<p>Now, twelve years on, it seems like not that much has changed. Granted: I spent the last five years not only developing but also managing teams and doing conceptual work. Still, at the core of things, I am what I was all those years ago &ndash; a web developer.</p>
+<p>Without this accomplishment, it&rsquo;s highly unlikely that Twitter would exist &ndash; the communications platform that enables the quick formation of movements for a cause in a way that puts everything before it to shame.</p>
 
-<p>As you might have guessed, though, the real changes are a bit more subtle. As time went on, I became more and more aware of two important facts: first, neither my talents nor my interests really lie in the frontend; second, twelve years of doing advertising is enough for a lifetime.</p>
+<p>Without this accomplishment, it&rsquo;s highly unlikely that OkCupid would exist &ndash; the dating platform that <a href="http://www.npr.org/blogs/alltechconsidered/2014/03/31/297342868/the-new-mozilla-ceos-political-past-is-imperiling-his-present">&ldquo;devoted the last ten years to bringing people—all people—together&rdquo;</a>.</p>
 
-<p>Don&rsquo;t get me wrong: I don&rsquo;t have any deeply-rooted problem with advertising in and of itself. I do, however, think that there&rsquo;s a fundamental problem with projects in the advertising industry: they lack real stakeholders. Now I might be completely off the mark here, but that was my overarching impression in almost all the projects I was ever involved in and it makes a lot of sense to me, too: the companies you work for in advertising have their stakes in their products, not really in marketing them.</p>
+<p>Without this accomplishment, it&rsquo;s highly unlikely Brendan would have resigned today.</p>
 
-<p>Whether I&rsquo;m right about this doesn&rsquo;t really matter, though: real or imagined, this gap I experience is enough of a problem for me that I want to change what I&rsquo;m working on.</p>
+<p>To the extend that his resignation is a victory for the LGBTQ movement, it is a victory that Brendan played a key role in enabling.</p>
 
-<p>The other part of the equation is that I enjoy building systems, applications and frameworks, not microsites. The projects I enjoy the most are along the lines of <a href="http://robotlegs.org">Robotlegs</a>, <a href="http://github.com/tschneidereit/SwiftSuspenders">Swiftsuspenders</a> and <a href="http://github.com/reprise/reprise-framework">Reprise</a> &ndash; an MVC framework, an IoC container and a CSS-based layout and components framework. Building a CMS abstraction layer to be used by the hundreds of agencies building modules and microsites for the <a href="http://www.nivea.com/">NIVEA website</a> was pretty neat, too.</p>
-
-<p>For these reasons, I have decided to close my current business as the tech lead of a small team of sub-contractors to advertising agencies at year&rsquo;s end.</p>
-
-<p>As of January 2012, I will do some exploring of a blank canvas of my own and be available for bookings as a freelancing developer specialized in building systems, renderers and complex applications. I&rsquo;m perfectly capable of doing and will do the occasional frontend programming if an otherwise perfect job requires it, but as said above, I strongly believe that my real talents lie a bit deeper down the stack. If that sounds like something your company could use and you&rsquo;re either located in Germany or could include me working remotely then please do get in touch!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Introduction]]></title>
-    <link href="http://tschneidereit.github.io/2009/06/06/introduction/"/>
-    <updated>2009-06-06T18:39:04+02:00</updated>
-    <id>http://tschneidereit.github.io/2009/06/06/introduction</id>
-    <content type="html"><![CDATA[<p>To the world at large and you who is reading this in particular: Hello!</p>
-
-<p>As seems pertinent for an introductory blog post, let me tell you a little bit
-about myself and what you can expect to read here in the future.</p>
-
-<p><em><strong>Update:</strong> This is oh so very much outdated that you shouldn&rsquo;t even read it. Really.</em></p>
-
-<p>I am a web developer mostly concentrated on solving highly technical, rather
-abstract problems using ActionScript and other front end web development
-technologies. That is to say: I&rsquo;m a Flash developer, but in contrast to many
-of my peers, I&rsquo;m not too interested in fancy animations and gratuitous
-effects. Thus, I&rsquo;m drawn not the quickly built, glossy high end projects that
-dominate the Flash world but to the invisible technical challenges that lie
-behind each well-built site or application.</p>
-
-<p>I constantly re-evaluate my views on what is a good balance between pragmatism
-and theoretical soundness in my daily work, trying to stay on the right side
-of the boundary between writing <a href="http://en.wikipedia.org/wiki/Spaghetti_code">maintainable code</a>
-and becoming an <a href="http://www.joelonsoftware.com/articles/fog0000000018.html">architecture astronaut</a>.</p>
-
-<p>For the last two and a half years, I&rsquo;ve lead the Flash development team at
-<a href="http://www.fork.de/">Fork unstable media</a>. Before that, I worked as a
-freelancer for about seven years and studied philosophy and an ever-changing
-assortment of minor fields.</p>
-
-<p>As of July 2009, I will be a co-founder of a yet-to-be-named startup located
-in Hamburg, Germany. What are we going to do? Mostly two things:</p>
-
-<ol>
-<li>Work as a technical sub-contractor for for internet agencies, concentrating on websites, applications and presentations mostly done in Adobe Flash.</li>
-<li>Try to <a href="http://github.com/tschneidereit/reprise/tree/master">cross the chasm</a> that lies between the proprietary world of Flash and the standards-based rest of the web-universe.</li>
-</ol>
-
-
-<p>Should you <a href="http://blog.tillschneidereit.de/atom.xml">decide to return</a>,
-I&rsquo;ll tell you a lot more about this second aspect of what we&rsquo;re going to do
-and about why I think that we&rsquo;re going to fill an important niche.</p>
+<p>Unquestionably, it is an impressive demonstration of the Open Web&rsquo;s power. On his role in creating it, I want to congratulate Brendan, and thank him.</p>
 ]]></content>
   </entry>
   

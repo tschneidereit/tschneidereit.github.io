@@ -9,9 +9,9 @@
   <meta name="author" content="Till Schneidereit">
 
   
-  <meta name="description" content="I just released version 1.6 of my not-so-small-anymore IoC container
-SwiftSuspenders. This
-release marks the end of the line for 1.x-releases, all &hellip;">
+  <meta name="description" content="tl;dr:
+Don&rsquo;t use the Mario Mushroom Operator if you don&rsquo;t want your setter to be
+invoked more than once. Update: I totally forgot to &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -80,6 +80,127 @@ release marks the end of the line for 1.x-releases, all &hellip;">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-10-22T14:34:04+02:00" pubdate data-updated="true">Oct 22<span>nd</span>, 2011</time>
+        
+         | <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/#disqus_thread">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>tl;dr:</strong>
+Don&rsquo;t use the Mario Mushroom Operator if you don&rsquo;t want your setter to be
+invoked more than once.</p>
+
+<p><strong>Update:</strong> I totally forgot to mention that I found out about this problem with <a href="https://twitter.com/darscan">@darscan</a> while working on <a href="http://github.com/tschneidereit/SwiftSuspenders/">Swiftsuspenders</a> and <a href="http://github.com/robotlegs/robotlegs-framework/">Robotlegs</a> code.</p>
+
+<p><strong>The Details</strong>
+I think it was <a href="twitter.com/#!/robpenner/">@robpenner</a> who coined the term
+&ldquo;Mario Mushroom Operator&rdquo;.</p>
+
+<p>In case you&rsquo;re wondering, the Mario Mushroom Operator is this: <code>||=</code>.</p>
+
+<p>A good translation for how the MMO™ works seems to be this:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="k">if</span> <span class="o">(!</span><span class="n">field</span><span class="o">)</span> <span class="o">{</span> <span class="n">field</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In case you&rsquo;re still wondering, here&rsquo;s how you&rsquo;d use it:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">function </span><span class="nf">useRuntimeDefault</span><span class="o">(</span><span class="n">input</span><span class="o">:</span><span class="kt">Object</span><span class="o">):</span><span class="kt">void</span> <span class="o">{</span> <span class="n">input</span>
+</span><span class='line'><span class="o">||=</span> <span class="n">getDefaultValue</span><span class="o">();</span> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>I.e., the most important use-case for the MMO™ is to apply runtime-determined
+default values for method arguments.</p>
+
+<p>Now, that&rsquo;s really useful and you might be wondering what could possibly go
+wrong with that.</p>
+
+<p>Consider this snipped of code:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="kd">private</span> <span class="kd">var</span> <span class="n">_setOnce</span> <span class="p">:</span> <span class="kt">Boolean</span><span class="o">;</span> <span class="kd">private</span> <span class="kd">var</span> <span class="n">_value</span> <span class="p">:</span>
+</span><span class='line'><span class="kt">Object</span><span class="o">;</span>
+</span><span class='line'>
+</span><span class='line'><span class="kd">public</span> <span class="kd">function</span> <span class="kd">set</span> <span class="n">value</span><span class="o">(</span><span class="n">value</span> <span class="o">:</span> <span class="n">Object</span><span class="o">)</span> <span class="o">:</span> <span class="kc">void</span> <span class="o">{</span> <span class="k">if</span> <span class="o">(</span><span class="n">_setOnce</span><span class="o">)</span> <span class="o">{</span> <span class="k">throw</span> <span class="k">new</span>
+</span><span class='line'><span class="kt">Error</span><span class="o">(</span><span class="s1">&#39;Value can only be set once&#39;</span><span class="o">);</span> <span class="o">}</span> <span class="n">_setOnce</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="n">_value</span> <span class="o">=</span> <span class="n">value</span><span class="o">;</span> <span class="o">}</span>
+</span><span class='line'><span class="kd">public</span> <span class="kd">function</span> <span class="kd">get</span> <span class="n">value</span><span class="o">()</span> <span class="o">:</span> <span class="n">Object</span> <span class="o">{</span> <span class="k">return</span> <span class="n">_value</span><span class="o">;</span> <span class="o">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Used in a class, this code encapsulates a value that can be set exactly once,
+after which it can only be read.</p>
+
+<p>With me still? Splendid.</p>
+
+<p>In fact, you&rsquo;re probably already guessing what comes now: Using the MMO™ to
+assign this once-settable value iff it hasn&rsquo;t already been set:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">value</span> <span class="o">||=</span> <span class="o">{};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And here, finally, things go awry. As it turns out, the MMO™&rsquo;s translation
+given earlier isn&rsquo;t quite correct. Instead, the compiler (or the VM, I haven&rsquo;t
+checked the bytecode) seems to translate our usage of the MMO™ to something
+along the following lines:</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">field</span> <span class="o">=</span> <span class="n">field</span> <span class="o">?</span> <span class="n">field</span> <span class="o">:</span> <span class="o">{};</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>In summary, instead of guarding the assignment to a field as an if statement
+would do, the MMO™ only chooses between two values to use in the assignment
+like the ternary operator does.</p>
+
+<p>In case you&rsquo;re now thinking that that doesn&rsquo;t affect you because you, just as
+every sane person you know, don&rsquo;t ever have use-cases for one-time assignable
+fields, ask yourself whether you can be certain that all your setters are
+side-effect free if you re-assign the same value and that you never, ever,
+care about the overhead associated with double-setting values needlessly.
+&ldquo;Yes&rdquo; and &ldquo;yes&rdquo;? Cool. &ldquo;Mmh&rdquo; and &ldquo;not sure&rdquo;: Weep with me.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -746,192 +867,6 @@ off.</p>
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/2009/11/22/improved-reflection-support-in-flash-player-10-1/">Improved reflection support in Flash Player 10.1?</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2009-11-22T01:23:14+01:00" pubdate data-updated="true">Nov 22<span>nd</span>, 2009</time>
-        
-         | <a href="/2009/11/22/improved-reflection-support-in-flash-player-10-1/#disqus_thread">Comments</a>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><h4>describeTypeJSON</h4>
-
-<p>So it looks like Flash Player 10.1 <em>might</em> support a somewhat improved
-reflections API containing support for:</p>
-
-<ul>
-<li>retrieving reflected information as JSON (or rather, as an AS3 object tree)</li>
-<li>filtering the request to only retrieve certain types of information</li>
-<li>Some more functions that are used internally to construct the result of describeType</li>
-</ul>
-
-
-<p>In other words, it containes improved access to the information available
-through <code>describeType</code> and nothing more.</p>
-
-<p>All of this functionality resides in the <code>avmplus</code> package in the
-playerglobal.swc that can be <a href="http://labs.adobe.com/downloads/flashplayer10.html">downloaded from labs.adobe.com</a>.</p>
-
-<p>This package contains a few methods and an assortment of constants:</p>
-
-<p><img src="/images/posts/2009/11/reflection-in-fp-10_1.png" alt="reflection in fp 10.1" /></p>
-
-<p>The most (or only, really) interesting of these is
-<code>DescribeType.describeTypeJSON</code>. Using this method, it&rsquo;s possible to retrieve
-reflection data as an object and to filter certain types of information using
-the constants seen in the image above as bit flags. For example, to get only
-information about the reflected classes constructor, you use the following
-code:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">DescribeType</span><span class="o">.</span><span class="na">describeTypeJSON</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">,</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_CONSTRUCTOR</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_TRAITS</span> <span class="o">|</span> <span class="n">avmplus</span><span class="o">.</span><span class="na">USE_ITRAITS</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>Using the different flags, it&rsquo;s possible to request an object containing
-exactly the information needed for a certain use-case. For example, in
-<a href="http://github.com/tschneidereit/SwiftSuspenders">SwiftSuspenders</a>, I&rsquo;d use
-the following code to get information about a types&#8217; methods, getters/setters,
-variables and constructor, all with associated metadata:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">DescribeType</span><span class="o">.</span><span class="na">describeTypeJSON</span><span class="o">(</span><span class="n">TargetClass</span><span class="o">,</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_CONSTRUCTOR</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_METHODS</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_VARIABLES</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_ACCESSORS</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_METADATA</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">HIDE_OBJECT</span> <span class="o">|</span>
-</span><span class='line'>  <span class="n">avmplus</span><span class="o">.</span><span class="na">INCLUDE_TRAITS</span> <span class="o">|</span> <span class="n">avmplus</span><span class="o">.</span><span class="na">USE_ITRAITS</span><span class="o">);</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<p>The last two flags have to be present to get any meaningful information at
-all. I honestly have no idea why it&rsquo;d be necessary to explicitly state that,
-yes, I want to include traits &ndash; you know, the mechanism with which the virtual
-machine links everything to classes and without which a class is completely
-uninteresting. And don&rsquo;t get me started on what <code>avmplus.USE_ITRAITS</code> stands
-for.</p>
-
-<p>All of this can also be used with the new <code>avmplus.describeType</code>, which is
-essentially identical to <code>flash.utils.describeType</code> except that it adds an
-additional parameter for the configuration flags:</p>
-
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='as3'><span class='line'><span class="n">describeType</span><span class="o">(</span><span class="n">target</span> <span class="o">:</span> <span class="n">Object</span><span class="o">,</span> <span class="n">flags</span> <span class="o">:</span> <span class="n">uint</span><span class="o">)</span> <span class="o">:</span> <span class="n">XML</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-<h4>Detours</h4>
-
-<p>If you think that that&rsquo;s all you need to know about how to use this new API,
-think again. All of these methods and the <code>DescribeType</code> class are implemented
-as internal types of the <code>avmplus</code> package and thus not accessible from
-outside this package. Fortunately, this can be worked around by creating a
-public wrapper in the same package:</p>
-
-<div><script src='https://gist.github.com/240357.js'></script>
-<noscript><pre><code>package avmplus
-{
-    public class PublicDescribeType
-    {
-        public static function describeTypeJSON(target : Object, flags : uint) : Object
-        {
-            return DescribeType.describeTypeJSON(target, flags);
-        }
-        
-        public function publicDescribeMetadata(xml : XML, metadata : Array) : void
-        {
-            describeMetadata(xml, metadata);
-        }
-        
-        public function publicDescribeParams(xml : XML, parameters : Object) : void
-        {
-            describeParams(xml, parameters);
-        }
-        
-        public function publicDescribeTraits(xml : XML, traits : Object) : void
-        {
-            describeTraits(xml, traits);
-        }
-        
-        public function publicFinish(xml : XML, e : XML, i : Object) : void
-        {
-            finish(xml, e, i);
-        }
-    }
-}</code></pre></noscript></div>
-
-
-<h4>Is it all just a mistake?</h4>
-
-<p>There are some things that are a bit fishy about this whole affair: Why is all
-this functionality internal to the <code>avmplus</code> namespace? And what&rsquo;s with the
-name &ldquo;avmplus&rdquo; in the first place? Seems like a weird choice to expose the
-project name of the VM in such a way. Also, the API feels quite rough and
-exposes functionality that&rsquo;s seemingly useless to AS3 developers.</p>
-
-<p>Investigating some more, I discovered how this entire API came to be: It&rsquo;s the
-new implementation of the old <code>describeType</code> functionality in the new version
-of the ActionScript Virtual Machine, code named Tamarin Tracing. The <a href="http://hg.mozilla.org/tamarin-redux/rev/55b332e70e12">log message of the commit which added it</a> sheds some light on this. Since this initial commit,
-<a href="http://hg.mozilla.org/tamarin-redux/log?rev=describetype">a few changes</a> have
-been made, resulting in <a href="http://hg.mozilla.org/tamarin-redux/file/81b0b36ee7cb/core/DescribeType.as">the current version of the API</a> as exposed in 10.1
-beta.</p>
-
-<p>Now here&rsquo;s my guess about what&rsquo;s happened: When creating the Flash Player
-beta, some configuration option was set the wrong way, causing the <code>avmplus</code>
-package to be visible within playerglobal.swc, when it really should be an
-invisible implementation detail. At the very least, the API in this state
-probably isn&rsquo;t meant for public consumption and might well be removed in the
-final 10.1 version.</p>
-
-<h4>Now what?</h4>
-
-<p>I&rsquo;d really like for this API to stay &ndash; be it in the current state or as a
-polished version located in the <code>flash.utils</code> package or wherever.
-Unfortunately, I&rsquo;m not sure what to do to that end; Adding a bug to the Flash
-Player issue tracker to ask that something that&rsquo;s available in the beta should
-stay that way in the final release seems odd.</p>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/3/">&larr; Older</a>
@@ -949,6 +884,10 @@ stay that way in the final release seems odd.</p>
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/2014/04/03/on-brendans-success/">On Brendan&#8217;s Success</a>
+      </li>
+    
+      <li class="post">
         <a href="/2012/05/14/editing-git-commit-messages-with-sublime-text-2/">Editing Git and Mercurial Commit Messages With Sublime Text 2</a>
       </li>
     
@@ -962,10 +901,6 @@ stay that way in the final release seems odd.</p>
     
       <li class="post">
         <a href="/2011/10/23/flash-cs5-and-version-control-of-binary-data-and-wasted-bandwidth/">Flash >= CS5 and version control: Of binary data and wasted bandwidth</a>
-      </li>
-    
-      <li class="post">
-        <a href="/2011/10/22/mario-mushroom-now-with-80-less-awesome/">Mario Mushroom: Now with 80% less awesome</a>
       </li>
     
   </ul>
@@ -1030,7 +965,7 @@ stay that way in the final release seems odd.</p>
     </div>
   </div>
   <footer role="contentinfo"><p>
-  Copyright &copy; 2013 - Till Schneidereit -
+  Copyright &copy; 2014 - Till Schneidereit -
   <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
 </p>
 
