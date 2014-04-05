@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: swiftsuspenders | Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.io/categories/swiftsuspenders/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.io/"/>
-  <updated>2014-04-04T06:33:22+02:00</updated>
-  <id>http://tschneidereit.github.io/</id>
+  <link href="http://tillschneidereit.net//categories/swiftsuspenders/atom.xml" rel="self"/>
+  <link href="http://tillschneidereit.net//"/>
+  <updated>2014-04-05T15:56:51+02:00</updated>
+  <id>http://tillschneidereit.net//</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[SwiftSuspenders 1.6: A Tale of Small Changes and Big Plans]]></title>
-    <link href="http://tschneidereit.github.io/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans/"/>
+    <link href="http://tillschneidereit.net//2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans/"/>
     <updated>2011-02-05T16:15:28+01:00</updated>
-    <id>http://tschneidereit.github.io/2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans</id>
+    <id>http://tillschneidereit.net//2011/02/05/swiftsuspenders-1-6-a-tale-of-small-changes-and-big-plans</id>
     <content type="html"><![CDATA[<p>I just released version 1.6 of my not-so-small-anymore IoC container
 <a href="https://github.com/tschneidereit/SwiftSuspenders">SwiftSuspenders</a>. This
 release marks the end of the line for 1.x-releases, all future development
@@ -196,9 +196,9 @@ release (which in turn depends on when we decide to release Robotlegs 2.0), I
   
   <entry>
     <title type="html"><![CDATA[SwiftSuspenders 1.5, or: A tale of robots and refactorings]]></title>
-    <link href="http://tschneidereit.github.io/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/"/>
+    <link href="http://tillschneidereit.net//2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings/"/>
     <updated>2010-05-15T17:41:01+02:00</updated>
-    <id>http://tschneidereit.github.io/2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings</id>
+    <id>http://tillschneidereit.net//2010/05/15/swiftsuspenders-1-5-or-a-tale-of-robots-and-refactorings</id>
     <content type="html"><![CDATA[<p>Nearly half a year ago, I released
 <a href="http://github.com/tschneidereit/SwiftSuspenders/">SwiftSuspenders</a> 1.0.</p>
 
@@ -370,9 +370,9 @@ injection mappings. Something along the lines of <code>injector.map(MyInterface,
   
   <entry>
     <title type="html"><![CDATA[Announcing SwiftSuspenders 1.0]]></title>
-    <link href="http://tschneidereit.github.io/2009/11/24/announcing-swiftsuspenders-1-0/"/>
+    <link href="http://tillschneidereit.net//2009/11/24/announcing-swiftsuspenders-1-0/"/>
     <updated>2009-11-24T21:59:03+01:00</updated>
-    <id>http://tschneidereit.github.io/2009/11/24/announcing-swiftsuspenders-1-0</id>
+    <id>http://tillschneidereit.net//2009/11/24/announcing-swiftsuspenders-1-0</id>
     <content type="html"><![CDATA[<h4>The History</h4>
 
 <p>Almost exactly two months ago, I <a href="/2009/09/21/introducing-%0Aswiftsuspenders/">announced</a> the first public version of SwiftSuspenders, my DI/ IoC

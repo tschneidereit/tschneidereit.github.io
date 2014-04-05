@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: Personal | Till Schneidereit]]></title>
-  <link href="http://tschneidereit.github.io/categories/personal/atom.xml" rel="self"/>
-  <link href="http://tschneidereit.github.io/"/>
-  <updated>2014-04-04T06:33:22+02:00</updated>
-  <id>http://tschneidereit.github.io/</id>
+  <link href="http://tillschneidereit.net//categories/personal/atom.xml" rel="self"/>
+  <link href="http://tillschneidereit.net//"/>
+  <updated>2014-04-05T15:56:51+02:00</updated>
+  <id>http://tillschneidereit.net//</id>
   <author>
     <name><![CDATA[Till Schneidereit]]></name>
     
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[On Brendan's Success]]></title>
-    <link href="http://tschneidereit.github.io/2014/04/03/on-brendans-success/"/>
+    <link href="http://tillschneidereit.net//2014/04/03/on-brendans-success/"/>
     <updated>2014-04-03T23:13:00+02:00</updated>
-    <id>http://tschneidereit.github.io/2014/04/03/on-brendans-success</id>
+    <id>http://tillschneidereit.net//2014/04/03/on-brendans-success</id>
     <content type="html"><![CDATA[<p>This Open Web thing? <a href="http://brendaneich.com/">Brendan Eich</a> spent the last 20 years helping to create, then save, then grow it. It might still exist in some meaningful form without him. It might not.</p>
 
 <p>Brendan has stated his motivation for this work over and over again: to enable free speech. I&rsquo;m sure he likes it better when that speech agrees with his own opinions. I know that he sees not just the freedom of speech but, more to the point, ways to efficiently disseminate all speech as transcending his personal opinions on almost all topics.</p>
