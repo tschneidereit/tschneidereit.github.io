@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Till Schneidereit</title>
+    <link>http://tillschneidereit.net/</link>
+    <description>Recent content on Till Schneidereit</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Apr 2016 16:06:37 +0200</lastBuildDate>
+    <atom:link href="http://tillschneidereit.net/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title></title>
+      <link>http://tillschneidereit.net/</link>
+      <pubDate>Mon, 04 Apr 2016 16:06:37 +0200</pubDate>
+      
+      <guid>http://tillschneidereit.net/</guid>
+      <description>&lt;p&gt;I&amp;rsquo;m a Research Engineer at mozilla, contributing to &lt;a href=&#34;https://servo.org/&#34;&gt;Servo&lt;/a&gt; and &lt;a href=&#34;https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey&#34;&gt;SpiderMonkey&lt;/a&gt;, and leading the &lt;a href=&#34;https://github.com/browserhtml/browserhtml&#34;&gt;browser.html&lt;/a&gt; project. This is my personal website; or a placeholder for it, which doesn&amp;rsquo;t contain any information, really.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>
